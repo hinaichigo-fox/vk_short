@@ -1,12 +1,8 @@
-import multitasking
-from vk_mess import *
+import vk_mess
+from vkbottle import LoopWrapper
+import asyncio
 
-@multitasking.task
-def recursion(token, group_id):
-	while True:
-		try:
-			Auth(token, group_id)
-		except Exception as err:
-			print(err)
-
-recursion(group_token, group_id)
+if __name__ == "__main__":
+	vk_mess.loop_wrapper = LoopWrapper()
+	vk_mess.loop_wrapper.on_startup.append(vk_mess.main(vk_mess.loop_wrapper))
+	vk_mess.loop_wrapper.run()
